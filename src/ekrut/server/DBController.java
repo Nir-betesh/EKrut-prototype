@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import ekrut.common.Subscriber;
 
@@ -41,7 +42,10 @@ public class DBController {
 		try {
 			PreparedStatement ps = conn.prepareStatement("UPDATE subscriber SET CreditCardNumber = ?, SubscriberNumber = ? WHERE id = ?");
 			ps.setString(1, sub.getCreditCardNumber());
-			ps.setInt(2, sub.getSubscriberNumber());
+			if (sub.getSubscriberNumber() != null)
+				ps.setInt(2, sub.getSubscriberNumber());
+			else
+				ps.setNull(2, Types.INTEGER);
 			ps.setString(3, sub.getId());
 			return 1 == ps.executeUpdate();
 		} catch (SQLException e) {
