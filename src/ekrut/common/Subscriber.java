@@ -2,20 +2,21 @@ package ekrut.common;
 
 import java.io.Serializable;
 
-public class Subscriber implements Serializable{
+public class Subscriber implements Serializable {
 
 	private static final long serialVersionUID = -3660991795279770252L;
 	private String firstName, lastName, id, phoneNumber, emailAddress, creditCardNumber;
-	private Integer subscriber;
+	private Integer subscriberNumber;
 
-	public Subscriber(String firstName, String lastName, String id, String phoneNumber, String emailAddress, String creditCardNumber, Integer subscriber) {
+	public Subscriber(String firstName, String lastName, String id, String phoneNumber, String emailAddress,
+			String creditCardNumber, Integer subscriber) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.id = id;
 		this.phoneNumber = phoneNumber;
 		this.emailAddress = emailAddress;
 		this.creditCardNumber = creditCardNumber;
-		this.subscriber = subscriber;
+		this.subscriberNumber = subscriber;
 	}
 
 	public String getFirstName() {
@@ -66,12 +67,12 @@ public class Subscriber implements Serializable{
 		this.creditCardNumber = creditCardNumber;
 	}
 
-	public Integer getSubscriber() {
-		return subscriber;
+	public Integer getSubscriberNumber() {
+		return subscriberNumber;
 	}
 
-	public void setSubscriber(Integer subscriber) {
-		this.subscriber = subscriber;
+	public void setSubscriberNumber(Integer subscriber) {
+		this.subscriberNumber = subscriber;
 	}
 
 }

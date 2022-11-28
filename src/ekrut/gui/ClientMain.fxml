@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11" fx:controller="ekrut.gui.ClientMainController">
+   <children>
+      <GridPane alignment="CENTER" prefHeight="190.0" prefWidth="414.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.79998779296875" minWidth="10.0" prefWidth="97.59998779296876" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.80001220703122" minWidth="10.0" prefWidth="183.80001220703122" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="131.5999755859375" minWidth="10.0" prefWidth="98.59995117187498" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="ID:" />
+            <TextField fx:id="idTxt" GridPane.columnIndex="1" />
+            <Button fx:id="fetchBtn" mnemonicParsing="false" onAction="#getSubscriber" text="Fetch data" GridPane.columnIndex="2" />
+            <Label text="First name:" GridPane.rowIndex="1" />
+            <Label text="Last name:" GridPane.rowIndex="2" />
+            <Label text="Phone number:" GridPane.rowIndex="3" />
+            <Label text="Email address:" GridPane.rowIndex="4" />
+            <Label text="Credit card number:" GridPane.rowIndex="5" />
+            <Label text="Subscriber number:" GridPane.rowIndex="6" />
+            <TextField fx:id="firstNameTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="lastNameTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="phoneNumberTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="emailAddressTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="creditCardTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="subscriberNumberTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+         </children>
+      </GridPane>
+      <Label fx:id="errorLabel" text="Label" textFill="RED" visible="false" />
+      <HBox alignment="CENTER" spacing="50.0">
+         <children>
+            <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateSubscriber" text="Update" />
+            <Button fx:id="resetBtn" mnemonicParsing="false" onAction="#resetSubscriber" text="Reset" />
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>
