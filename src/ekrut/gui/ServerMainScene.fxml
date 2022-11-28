@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11" fx:controller="ekrut.gui.ServerMainSceneController">
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ekrut.gui.ServerMainSceneController">
    <children>
       <HBox alignment="CENTER_LEFT">
          <children>
@@ -15,7 +14,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="connectionStatus" text="Not connected" />
+            <Label fx:id="connectionStatus" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Not connected" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0">
@@ -25,7 +24,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="connectionHost" />
+            <Label fx:id="connectionHost" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="68.0">
@@ -35,7 +34,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="connectionIP" />
+            <Label fx:id="connectionIP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
          </children>
       </HBox>
    </children>

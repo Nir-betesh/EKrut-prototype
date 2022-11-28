@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class ServerUI extends Application {
+	
+	private static Server server;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -25,8 +27,13 @@ public class ServerUI extends Application {
 		primaryStage.show();
 	}
 	
+	@Override
+	public void stop() throws IOException {
+		server.close();
+	}
+	
 	public static boolean runServer(int port, ServerMainSceneController controller) {
-		Server server = new Server(port, controller);
+		server = new Server(port, controller);
 		
 		try {
 			server.listen();

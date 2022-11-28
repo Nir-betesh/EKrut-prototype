@@ -45,7 +45,7 @@ public class Server extends AbstractServer {
 	}
 	
 	@Override
-	protected void clientDisconnected(ConnectionToClient client) {
+	protected synchronized void clientException(ConnectionToClient client, Throwable exception) {
 		controller.clientDisconnected(client);
 	}
 

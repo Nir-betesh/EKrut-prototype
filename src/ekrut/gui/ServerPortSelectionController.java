@@ -54,7 +54,7 @@ public class ServerPortSelectionController {
     		}
     		
     		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("ekrut/gui/ServerMainScene.fxml"));
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ekrut/gui/ServerMainScene.fxml"));
     		Parent root = loader.load();
     		stage.getScene().setRoot(root);
     		if (!ServerUI.runServer(port, loader.getController())) {

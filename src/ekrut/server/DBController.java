@@ -24,13 +24,18 @@ public class DBController {
 
 	public Subscriber getSubscriber(String id) {
 		try {
+			Subscriber sub;
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM subscriber WHERE id = ?;");
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				return new Subscriber(rs.getString(1), rs.getString(2),
+				sub = new Subscriber(rs.getString(1), rs.getString(2),
 									  rs.getString(3), rs.getString(4),
 						              rs.getString(5), rs.getString(6), rs.getInt(7));
+				if (rs.wasNull())
+					sub.setSubscriberNumber(null);
+				
+				return sub;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
