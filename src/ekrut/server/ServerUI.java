@@ -25,14 +25,14 @@ public class ServerUI extends Application {
 		primaryStage.show();
 	}
 	
-	public static void runServer(int port, ServerMainSceneController controller) {
+	public static boolean runServer(int port, ServerMainSceneController controller) {
 		Server server = new Server(port, controller);
 		
 		try {
 			server.listen();
+			return true;
 		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(-1);
+			return false;
 		}
 	}
 

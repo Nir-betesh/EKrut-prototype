@@ -23,6 +23,19 @@ public class ServerPortSelectionController {
     
     @FXML
     private Label redLabel;
+    
+    private final static String INVALID_PORT = "Port must be a valid integer in the range 1 - 65535";
+    private final static String PORT_UNAVAILABLE = "Failed to listen to port. Try another one";
+    
+    private void setInvalidPort() {
+    	redLabel.setText(INVALID_PORT);
+    	redLabel.setVisible(true);
+    }
+    
+    private void setUnavailablePort() {
+    	redLabel.setText(PORT_UNAVAILABLE);
+    	redLabel.setVisible(true);
+    }
 
     @FXML
     void selectPort(ActionEvent event) throws IOException {
@@ -30,13 +43,13 @@ public class ServerPortSelectionController {
     	int port;
     	
     	if (portText.isEmpty()) {
-    		redLabel.setVisible(true);
+    		setInvalidPort();
     		return;
     	} else {
     		try {
     			port = Integer.parseInt(portText);
     		} catch (NumberFormatException e) {
-    			redLabel.setVisible(true);
+    			setInvalidPort();
     			return;
     		}
     		
@@ -44,7 +57,9 @@ public class ServerPortSelectionController {
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("ekrut/gui/ServerMainScene.fxml"));
     		Parent root = loader.load();
     		stage.getScene().setRoot(root);
-    		ServerUI.runServer(port, loader.getController());
+    		if (!ServerUI.runServer(port, loader.getController())) {
+    			setUnavailablePort();
+    		}
     	}
     }
 
