@@ -2,36 +2,33 @@ package ekrut.client;
 
 import java.io.IOException;
 import ekrut.common.Subscriber;
+import ekrut.gui.ClientMainController;
 import ocsf.client.AbstractClient;
 
 public class Client extends AbstractClient{
+	
+	private ClientMainController controller;
 
-	public Client(String host, int port) {
+	public Client(String host, int port, ClientMainController controller) throws IOException {
 		super(host, port);
-		try {
-			openConnection();
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
+		this.controller = controller;
+		controller.setClient(this);
+		
+		openConnection();
 	}
 
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		if (msg instanceof Subscriber) {
 			Subscriber sub = (Subscriber)msg;
-			
-			
+			controller.displaySubscriber(sub);
 		} else if (msg instanceof String) {
 			if (msg.equals("Success!")) {
-				
-				
+				controller.displayUpdateSuccess();
 			} else if(msg.equals("Failed!")) {
-				
-				
+				controller.displayUpdateFailed();
 			} else {
-				
-				
+				controller.displayFetchFailed();
 			}
 		}
 	}
