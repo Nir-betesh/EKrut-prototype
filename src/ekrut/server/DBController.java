@@ -14,7 +14,7 @@ public class DBController {
 
 	public DBController() {
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/ekrut?serverTimezone=IST", "root", "Nn30757947");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/ekrut?serverTimezone=IST", "root", "Retool7 Sturdy Tug Unwashed");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.exit(-1);
@@ -39,14 +39,10 @@ public class DBController {
 	
 	public boolean updateSubscriber(Subscriber sub) {
 		try {
-			PreparedStatement ps = conn.prepareStatement("UPDATE subscriber SET FirstName = ?,LastName = ?, PhoneNumber = ?,"
-													   + " EmailAddress = ?, CCnumber = ? WHERE id = ?");
-			ps.setString(1, sub.getFirstName());
-			ps.setString(2, sub.getLastName());
-			ps.setString(3, sub.getPhoneNumber());
-			ps.setString(4, sub.getEmailAddress());
-			ps.setString(5, sub.getCreditCardNumber());
-			ps.setString(6, sub.getId());
+			PreparedStatement ps = conn.prepareStatement("UPDATE subscriber SET CreditCardNumber = ?, SubscriberNumber = ? WHERE id = ?");
+			ps.setString(1, sub.getCreditCardNumber());
+			ps.setInt(2, sub.getSubscriberNumber());
+			ps.setString(3, sub.getId());
 			return 1 == ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

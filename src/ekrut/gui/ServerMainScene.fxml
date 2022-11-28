@@ -35,7 +35,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="connectionPort" />
+            <Label fx:id="connectionIP" />
          </children>
       </HBox>
    </children>
