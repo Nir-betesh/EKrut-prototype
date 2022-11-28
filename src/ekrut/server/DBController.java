@@ -15,7 +15,8 @@ public class DBController {
 
 	public DBController() {
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/ekrut?serverTimezone=IST", "root", "Retool7 Sturdy Tug Unwashed");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/ekrut?serverTimezone=IST", "root",
+					"Retool7 Sturdy Tug Unwashed");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.exit(-1);
@@ -29,12 +30,11 @@ public class DBController {
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				sub = new Subscriber(rs.getString(1), rs.getString(2),
-									  rs.getString(3), rs.getString(4),
-						              rs.getString(5), rs.getString(6), rs.getInt(7));
+				sub = new Subscriber(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getInt(7));
 				if (rs.wasNull())
 					sub.setSubscriberNumber(null);
-				
+
 				return sub;
 			}
 		} catch (SQLException e) {
@@ -42,10 +42,11 @@ public class DBController {
 		}
 		return null;
 	}
-	
+
 	public boolean updateSubscriber(Subscriber sub) {
 		try {
-			PreparedStatement ps = conn.prepareStatement("UPDATE subscriber SET CreditCardNumber = ?, SubscriberNumber = ? WHERE id = ?");
+			PreparedStatement ps = conn
+					.prepareStatement("UPDATE subscriber SET CreditCardNumber = ?, SubscriberNumber = ? WHERE id = ?");
 			ps.setString(1, sub.getCreditCardNumber());
 			if (sub.getSubscriberNumber() != null)
 				ps.setInt(2, sub.getSubscriberNumber());
