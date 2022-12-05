@@ -50,6 +50,7 @@ public class ClientMainController {
 	private Client client;
 	private Subscriber sub;
 
+	// ERROR messages.
 	private final static String INVALID_ID = "Entered invalid ID";
 	private final static String FETCH_FAILED = "Failed to fetch subscriber from server";
 	private final static String INVALID_DETAILS = "Invalid subscriber details";
@@ -81,6 +82,10 @@ public class ClientMainController {
 		errorLabel.setVisible(true);
 	}
 
+	
+	/*
+	 * Get subscriber from server throw client.
+	 */
 	@FXML
 	void getSubscriber(ActionEvent event) {
 		errorLabel.setVisible(false);
@@ -90,12 +95,14 @@ public class ClientMainController {
 			setInvalidId();
 			return;
 		}
-
+		
+		// Get subscriber from server throw client.
 		if (!client.getSubscriber(id)) {
 			setFetchFailed();
 			return;
 		}
-
+		
+		// Enable to search another subscriber.
 		idTxt.setEditable(false);
 	}
 
@@ -113,12 +120,18 @@ public class ClientMainController {
 		return true;
 	}
 	
+	/*
+	 * Update Subscriber credit card or subscriber number. 
+	 */
 	@FXML
 	void updateSubscriber(ActionEvent event) {
-		errorLabel.setVisible(false);
+		
+		errorLabel.setVisible(false); // Hide error label
+		
 		String creditCard = creditCardTxt.getText().trim();
 		String subscriberNumber = subscriberNumberTxt.getText().trim();
-
+		
+		// Check Validations
 		if (creditCard.isEmpty()) {
 			setInvalidDetails();
 			return;
@@ -128,12 +141,13 @@ public class ClientMainController {
 			return;
 		}
 		
-		
+		// Set credit card number.
 		sub.setCreditCardNumber(creditCard);
 		if (subscriberNumber.isEmpty() || subscriberNumber.equals("N/A")) {
 			sub.setSubscriberNumber(null);
 		} else {
 			try {
+				// Set subscriber number.
 				int subNum = Integer.parseInt(subscriberNumber);
 				sub.setSubscriberNumber(subNum);
 			} catch (NumberFormatException e) {
@@ -141,7 +155,7 @@ public class ClientMainController {
 				return;
 			}
 		}
-
+		// Send update subscriber to client
 		if (!client.updateSubscriber(sub)) {
 			setUpdateFailed();
 			return;
@@ -154,7 +168,11 @@ public class ClientMainController {
 		this.client = client;
 	}
 
+	/*
+	 * displaySubscriber Method get subscriber and present to user all required information.
+	 */
 	public void displaySubscriber(Subscriber sub) {
+		// Run all in GUI thread.
 		Platform.runLater(() -> {
 			this.sub = sub;
 
@@ -164,30 +182,34 @@ public class ClientMainController {
 			emailAddressTxt.setText(sub.getEmailAddress());
 			creditCardTxt.setText(sub.getCreditCardNumber());
 			Integer subNum = sub.getSubscriberNumber();
-
+			
+			// Check if subscriber has subscriber number.
 			if (subNum == null)
 				subscriberNumberTxt.setText("N/A");
 			else
 				subscriberNumberTxt.setText(subNum.toString());
-
+			
+			// Enable editing credit card and subscriber number.
 			creditCardTxt.setEditable(true);
 			subscriberNumberTxt.setEditable(true);
 		});
 	}
 
+	// Success to updated subscriber - pop-up alert.
 	public void displayUpdateSuccess() {
 		Platform.runLater(() -> {
 			Alert alert = new Alert(AlertType.INFORMATION, "Subscriber update successful!", ButtonType.OK);
 			alert.show();
 		});
 	}
-
+	// Fail to updated subscriber - pop-up alert.
 	public void displayUpdateFailed() {
 		Platform.runLater(() -> {
 			setUpdateFailed();
 		});
 	}
 
+	// Clear all subscriber information except ID.
 	private void reset() {
 		firstNameTxt.setText("");
 		lastNameTxt.setText("");
@@ -202,9 +224,10 @@ public class ClientMainController {
 		this.sub = null;
 	}
 
+	// Can't fetch subscriber info message.
 	public void displayFetchFailed() {
 		Platform.runLater(() -> {
-			reset();
+			reset(); 
 			setFetchFailed();
 		});
 	}
