@@ -8,8 +8,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 
@@ -20,6 +22,15 @@ public class ServerPortSelectionController {
 
 	@FXML
 	private TextField portTxt;
+
+	@FXML
+	private TextField dbNameTxt;
+
+	@FXML
+	private PasswordField dbPasswordTxt;
+
+	@FXML
+	private TextField dbUsernameTxt;
 
 	@FXML
 	private Label redLabel;
@@ -36,9 +47,13 @@ public class ServerPortSelectionController {
 		redLabel.setText(PORT_UNAVAILABLE);
 		redLabel.setVisible(true);
 	}
+	
+	public void setFocus(WindowEvent event) {
+		dbPasswordTxt.requestFocus();
+	}
 
 	@FXML
-	void selectPort(ActionEvent event) throws IOException {
+	void selectSettings(ActionEvent event) throws IOException {
 		String portText = portTxt.getText().trim();
 		int port;
 
@@ -57,7 +72,8 @@ public class ServerPortSelectionController {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ekrut/gui/ServerMainScene.fxml"));
 			Parent root = loader.load();
 			stage.getScene().setRoot(root);
-			if (!ServerUI.runServer(port, loader.getController())) {
+			if (!ServerUI.runServer(port, dbNameTxt.getText(), dbUsernameTxt.getText(), dbPasswordTxt.getText(),
+									loader.getController())) {
 				setUnavailablePort();
 			}
 		}
