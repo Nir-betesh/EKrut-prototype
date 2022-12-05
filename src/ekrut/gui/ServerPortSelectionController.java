@@ -1,6 +1,7 @@
 package ekrut.gui;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import ekrut.server.ServerUI;
 import javafx.event.ActionEvent;
@@ -37,6 +38,7 @@ public class ServerPortSelectionController {
 
 	private final static String INVALID_PORT = "Port must be a valid integer in the range 1 - 65535";
 	private final static String PORT_UNAVAILABLE = "Failed to listen to port. Try another one";
+	private final static String DBERROR = "Failed to connect to Database. Try changing your settings";
 
 	private void setInvalidPort() {
 		redLabel.setText(INVALID_PORT);
@@ -48,12 +50,20 @@ public class ServerPortSelectionController {
 		redLabel.setVisible(true);
 	}
 	
+	private void setDBError() {
+		redLabel.setText(DBERROR);
+		redLabel.setVisible(true);
+	}
+	
 	public void setFocus(WindowEvent event) {
 		dbPasswordTxt.requestFocus();
 	}
 
+	private FXMLLoader loader;
+	
 	@FXML
 	void selectSettings(ActionEvent event) throws IOException {
+		redLabel.setVisible(false);
 		String portText = portTxt.getText().trim();
 		int port;
 
@@ -69,13 +79,22 @@ public class ServerPortSelectionController {
 			}
 
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ekrut/gui/ServerMainScene.fxml"));
-			Parent root = loader.load();
-			stage.getScene().setRoot(root);
-			if (!ServerUI.runServer(port, dbNameTxt.getText(), dbUsernameTxt.getText(), dbPasswordTxt.getText(),
-									loader.getController())) {
-				setUnavailablePort();
+			if (loader == null) {
+				loader = new FXMLLoader(getClass().getResource("/ekrut/gui/ServerMainScene.fxml"));
+				loader.load();
 			}
+			Parent root = loader.getRoot();
+			try {
+				if (!ServerUI.runServer(port, dbNameTxt.getText(), dbUsernameTxt.getText(), dbPasswordTxt.getText(),
+										loader.getController())) {
+					setUnavailablePort();
+					return;
+				}
+			} catch (SQLException e) {
+				setDBError();
+				return;
+			}
+			stage.getScene().setRoot(root);
 		}
 	}
 

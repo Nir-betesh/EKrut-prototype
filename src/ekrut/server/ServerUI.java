@@ -1,6 +1,7 @@
 package ekrut.server;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import ekrut.gui.ServerMainSceneController;
 import ekrut.gui.ServerPortSelectionController;
@@ -38,9 +39,9 @@ public class ServerUI extends Application {
 	}
 
 	public static boolean runServer(int port, String dbName, String dbUsername, String dbPassword,
-									ServerMainSceneController controller) {
+									ServerMainSceneController controller) throws SQLException {
 		server = new Server(port, dbName, dbUsername, dbPassword, controller);
-
+		
 		try {
 			server.listen();
 			return true;

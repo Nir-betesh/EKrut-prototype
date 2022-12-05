@@ -1,6 +1,7 @@
 package ekrut.server;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import ekrut.common.Subscriber;
 import ekrut.gui.ServerMainSceneController;
@@ -12,7 +13,8 @@ public class Server extends AbstractServer {
 	private DBController dbCon;
 	private ServerMainSceneController controller;
 
-	public Server(int port, String dbName, String dbUsername, String dbPassword, ServerMainSceneController controller) {
+	public Server(int port, String dbName, String dbUsername, String dbPassword, ServerMainSceneController controller) 
+			throws SQLException {
 		super(port);
 		dbCon = new DBController(dbName, dbUsername, dbPassword);
 		this.controller = controller;
