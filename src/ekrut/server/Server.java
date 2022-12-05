@@ -12,9 +12,9 @@ public class Server extends AbstractServer {
 	private DBController dbCon;
 	private ServerMainSceneController controller;
 
-	public Server(int port, ServerMainSceneController controller) {
+	public Server(int port, String dbName, String dbUsername, String dbPassword, ServerMainSceneController controller) {
 		super(port);
-		dbCon = new DBController();
+		dbCon = new DBController(dbName, dbUsername, dbPassword);
 		this.controller = controller;
 	}
 
