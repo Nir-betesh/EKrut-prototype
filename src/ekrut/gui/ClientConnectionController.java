@@ -39,6 +39,8 @@ public class ClientConnectionController {
 		errorLabel.setText(CONNECTION_FAILED);
 		errorLabel.setVisible(true);
 	}
+	
+	private FXMLLoader loader;
 
 	@FXML
 	void connectToServer(ActionEvent event) throws IOException {
@@ -60,13 +62,17 @@ public class ClientConnectionController {
 		}
 
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ekrut/gui/ClientMain.fxml"));
-		Parent root = loader.load();
-		stage.getScene().setRoot(root);
-		stage.sizeToScene();
+		if (loader == null) {
+			loader = new FXMLLoader(getClass().getResource("/ekrut/gui/ClientMain.fxml"));
+			loader.load();
+		}
+		Parent root = loader.getRoot();
 		if (!ClientUI.runClient(host, port, loader.getController())) {
 			setConnectionFailed();
+			return;
 		}
+		stage.getScene().setRoot(root);
+		stage.sizeToScene();
 	}
 
 }
