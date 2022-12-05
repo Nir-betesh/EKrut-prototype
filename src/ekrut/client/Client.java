@@ -7,6 +7,7 @@ import ocsf.client.AbstractClient;
 
 public class Client extends AbstractClient {
 
+	// Create instance of ClientMainController for presenting Errors
 	private ClientMainController controller;
 
 	public Client(String host, int port, ClientMainController controller) throws IOException {

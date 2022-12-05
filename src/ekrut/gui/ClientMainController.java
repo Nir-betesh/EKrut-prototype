@@ -54,6 +54,7 @@ public class ClientMainController {
 	private final static String FETCH_FAILED = "Failed to fetch subscriber from server";
 	private final static String INVALID_DETAILS = "Invalid subscriber details";
 	private final static String UPDATE_FAILED = "Failed to update subscriber details in server";
+	private final static String INVALID_CREDIT_CARD = "Credit card can only contain digits";
 
 	private void setInvalidId() {
 		errorLabel.setText(INVALID_ID);
@@ -72,6 +73,11 @@ public class ClientMainController {
 
 	private void setUpdateFailed() {
 		errorLabel.setText(UPDATE_FAILED);
+		errorLabel.setVisible(true);
+	}
+	
+	private void setInvalidCreditCard() {
+		errorLabel.setText(INVALID_CREDIT_CARD);
 		errorLabel.setVisible(true);
 	}
 
@@ -98,6 +104,15 @@ public class ClientMainController {
 		reset();
 	}
 
+	// Helper method to validate credit card 
+	private boolean isStrOnlyDigits(String parmeter) {
+		for(int i = 0; i < parmeter.length(); i++) {
+			if (!Character.isDigit(parmeter.charAt(i)))
+			return false;
+		}
+		return true;
+	}
+	
 	@FXML
 	void updateSubscriber(ActionEvent event) {
 		errorLabel.setVisible(false);
@@ -108,7 +123,12 @@ public class ClientMainController {
 			setInvalidDetails();
 			return;
 		}
-
+		if (!isStrOnlyDigits(creditCard)) {
+			setInvalidCreditCard();
+			return;
+		}
+		
+		
 		sub.setCreditCardNumber(creditCard);
 		if (subscriberNumber.isEmpty() || subscriberNumber.equals("N/A")) {
 			sub.setSubscriberNumber(null);
@@ -127,6 +147,8 @@ public class ClientMainController {
 			return;
 		}
 	}
+
+
 
 	public void setClient(Client client) {
 		this.client = client;
