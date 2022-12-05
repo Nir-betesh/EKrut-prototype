@@ -13,14 +13,9 @@ public class DBController {
 
 	private Connection conn;
 
-	public DBController(String dbName, String dbUsername, String dbPassword) {
-		try {
-			conn = DriverManager.getConnection(String.format("jdbc:mysql://localhost/%s?serverTimezone=IST", dbName),
-					dbUsername, dbPassword);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
+	public DBController(String dbName, String dbUsername, String dbPassword) throws SQLException {
+		conn = DriverManager.getConnection(String.format("jdbc:mysql://localhost/%s?serverTimezone=IST", dbName),
+										   dbUsername, dbPassword);
 	}
 
 	public Subscriber getSubscriber(String id) {
