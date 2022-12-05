@@ -45,7 +45,7 @@ public class ServerUI extends Application {
 		try {
 			server.listen();
 			return true;
-		} catch (IOException e) {
+		} catch (IOException | IllegalArgumentException e) {
 			return false;
 		}
 	}

@@ -29,6 +29,7 @@ public class ClientConnectionController {
 
 	private final static String INVALID_VALUES = "The host or port number are invalid!";
 	private final static String CONNECTION_FAILED = "Connection Failed! Please try again";
+	private final static String PORT_RANGE_VALUE = "Port not in range 1 - 65535";
 
 	private void setInvalidValues() {
 		errorLabel.setText(INVALID_VALUES);
@@ -40,6 +41,11 @@ public class ClientConnectionController {
 		errorLabel.setVisible(true);
 	}
 	
+	private void setInvalidPortValue() {
+		errorLabel.setText(PORT_RANGE_VALUE);
+		errorLabel.setVisible(true);
+	}
+	
 	private FXMLLoader loader;
 
 	@FXML
@@ -47,7 +53,7 @@ public class ClientConnectionController {
 		String host = hostTxt.getText().trim();
 		String portString = portTxt.getText().trim();
 
-		if (host.isEmpty() || portString.isEmpty()) {
+		if (host.isEmpty() || portString.isEmpty()) { // Check if host text box is empty
 			setInvalidValues();
 			return;
 		}
@@ -60,17 +66,24 @@ public class ClientConnectionController {
 			setInvalidValues();
 			return;
 		}
+		
+		if (0 >= port || port >= 65536) {
+			setInvalidPortValue();
+			return;
+		}
 
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		if (loader == null) {
 			loader = new FXMLLoader(getClass().getResource("/ekrut/gui/ClientMain.fxml"));
 			loader.load();
 		}
+		
 		Parent root = loader.getRoot();
 		if (!ClientUI.runClient(host, port, loader.getController())) {
 			setConnectionFailed();
 			return;
 		}
+		
 		stage.getScene().setRoot(root);
 		stage.sizeToScene();
 	}
