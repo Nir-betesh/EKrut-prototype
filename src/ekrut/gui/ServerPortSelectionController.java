@@ -2,7 +2,6 @@ package ekrut.gui;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
 import ekrut.server.ServerUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,13 +35,15 @@ public class ServerPortSelectionController {
 	@FXML
 	private Label redLabel;
 
+	// ERROR messages.
 	private final static String INVALID_PORT = "Port must be a valid integer in the range 1 - 65535";
 	private final static String PORT_UNAVAILABLE = "Failed to listen to port. Try another one";
 	private final static String DBERROR = "Failed to connect to Database. Try changing your settings";
 
+	
 	private void setInvalidPort() {
 		redLabel.setText(INVALID_PORT);
-		redLabel.setVisible(true);
+		redLabel.setVisible(true); // Show ERROR message.
 	}
 
 	private void setUnavailablePort() {
@@ -61,9 +62,10 @@ public class ServerPortSelectionController {
 
 	private FXMLLoader loader;
 	
+	
 	@FXML
 	void selectSettings(ActionEvent event) throws IOException {
-		redLabel.setVisible(false);
+		redLabel.setVisible(false); // If an ERROR label was previously shown, hide it.  
 		String portText = portTxt.getText().trim();
 		int port;
 
@@ -85,6 +87,7 @@ public class ServerPortSelectionController {
 			}
 			Parent root = loader.getRoot();
 			try {
+				// Try to launch server
 				if (!ServerUI.runServer(port, dbNameTxt.getText(), dbUsernameTxt.getText(), dbPasswordTxt.getText(),
 										loader.getController())) {
 					setUnavailablePort();
@@ -94,7 +97,7 @@ public class ServerPortSelectionController {
 				setDBError();
 				return;
 			}
-			stage.getScene().setRoot(root);
+			stage.getScene().setRoot(root); // If server was launch, change scene.
 		}
 	}
 
