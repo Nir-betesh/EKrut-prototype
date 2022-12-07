@@ -7,6 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import ocsf.server.ConnectionToClient;
 
+/*
+ * the first 
+ */
 public class ServerMainSceneController {
 
 	@FXML
